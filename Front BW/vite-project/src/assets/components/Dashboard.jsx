@@ -202,70 +202,110 @@ export default function Dashboard({ onLogout }) {
                </form>
             </div>
 
-            {/* Tabla Corregida */}
-            <div className="table-card-custom">
-               <h2 className="table-title-custom">📚 Inventario de Libros</h2>
+            {/* Contenedor principal de la tabla*/}
+            <div
+               style={{
+                  backgroundColor: "rgba(255, 255, 255, 0.85)",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                  marginTop: "20px",
+               }}
+            >
+               <h2
+                  className="table-title-custom"
+                  style={{ marginBottom: "20px" }}
+               >
+                  📚 Inventario de Libros
+               </h2>
+
                <table
                   className="table-custom"
-                  style={{ width: "100%", tableLayout: "fixed" }}
+                  style={{ width: "100%", borderCollapse: "collapse" }}
                >
                   <thead>
-                     <tr>
-                        <th style={{ width: "30%" }}>LIBRO</th>
-                        <th style={{ width: "15%" }}>GÉNERO</th>
-                        <th style={{ width: "10%" }}>AÑO</th>
-                        <th style={{ width: "15%" }}>PRECIO</th>
-                        <th style={{ width: "15%" }}>STOCK</th>
-                        <th style={{ width: "15%" }}>ACCIONES</th>
+                     <tr style={{ borderBottom: "2px solid #5a3d2e" }}>
+                        <th style={{ padding: "10px", textAlign: "center" }}>
+                           PORTADA
+                        </th>
+                        <th style={{ padding: "10px", textAlign: "left" }}>
+                           LIBRO
+                        </th>
+                        <th style={{ padding: "10px", textAlign: "center" }}>
+                           GÉNERO
+                        </th>
+                        <th style={{ padding: "10px", textAlign: "center" }}>
+                           AÑO
+                        </th>
+                        <th style={{ padding: "10px", textAlign: "center" }}>
+                           PRECIO
+                        </th>
+                        <th style={{ padding: "10px", textAlign: "center" }}>
+                           STOCK
+                        </th>
+                        <th style={{ padding: "10px", textAlign: "center" }}>
+                           ACCIONES
+                        </th>
                      </tr>
                   </thead>
                   <tbody>
                      {books.map((book) => (
-                        <tr key={book.id}>
-                           <td
-                              style={{
-                                 display: "flex",
-                                 alignItems: "center",
-                                 gap: "10px",
-                                 padding: "10px",
-                              }}
-                           >
+                        <tr
+                           key={book.id}
+                           style={{
+                              borderBottom: "1px solid rgba(90, 61, 46, 0.15)",
+                           }}
+                        >
+                           <td style={{ padding: "10px", textAlign: "center" }}>
                               <img
                                  src={book.cover}
                                  alt="portada"
                                  style={{
-                                    width: "40px",
-                                    height: "55px",
+                                    width: "100px",
+                                    height: "140px",
                                     objectFit: "cover",
                                     borderRadius: "4px",
                                  }}
                               />
-                              <div style={{ overflow: "hidden" }}>
-                                 <strong
-                                    style={{
-                                       display: "block",
-                                       whiteSpace: "nowrap",
-                                       overflow: "hidden",
-                                       textOverflow: "ellipsis",
-                                    }}
-                                 >
-                                    {book.nombre}
-                                 </strong>
-                                 <span
-                                    style={{
-                                       fontSize: "0.8rem",
-                                       color: "var(--camel)",
-                                    }}
-                                 >
-                                    {book.autor}
-                                 </span>
-                              </div>
                            </td>
-                           <td>{book.genero}</td>
-                           <td>{book.año}</td>
-                           <td>${book.precio}</td>
-                           <td>{book.stock} u.</td>
-                           <td>
+                           <td style={{ padding: "10px" }}>
+                              <strong
+                                 style={{ display: "block", color: "#1a0f0a" }}
+                              >
+                                 {book.nombre}
+                              </strong>
+                              <span
+                                 style={{
+                                    fontStyle: "italic",
+                                    fontSize: "0.9rem",
+                                    color: "#666",
+                                 }}
+                              >
+                                 {book.autor}
+                              </span>
+                           </td>
+                           <td style={{ padding: "10px", textAlign: "center" }}>
+                              {book.genero}
+                           </td>
+                           <td style={{ padding: "10px", textAlign: "center" }}>
+                              {book.año}
+                           </td>
+                           <td style={{ padding: "10px", textAlign: "center" }}>
+                              $ {book.precio}
+                           </td>
+                           <td style={{ padding: "10px", textAlign: "center" }}>
+                              <input
+                                 type="number"
+                                 defaultValue={book.stock}
+                                 style={{
+                                    width: "45px",
+                                    textAlign: "center",
+                                    padding: "4px",
+                                 }}
+                              />
+                           </td>
+                           <td style={{ padding: "10px", textAlign: "center" }}>
                               <button
                                  onClick={() => handleDelete(book.id)}
                                  className="btn-delete-custom"

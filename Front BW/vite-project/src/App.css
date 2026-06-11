@@ -407,7 +407,7 @@ body {
    text-align: center;
    width: 300px;
 }
-/* Fondo de AdminDash */
+/*Fondo y Estructura General dash */
 .app-workspace-bg {
    min-height: 100vh;
    background:
@@ -419,20 +419,17 @@ body {
    font-family: var(--f-body);
 }
 
-/* Contenedor del Formulario AdminDash */
-.form-card-custom {
-   background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.95),
-      rgba(245, 241, 234, 0.95)
-   );
+/*Formulario dash*/
+.form-card-custom,
+.grid-panel {
+   background: rgba(255, 255, 255, 0.75) !important;
+   backdrop-filter: blur(4px) !important;
    padding: 30px;
-   border-radius: 8px;
+   border-radius: 12px !important;
+   border: 1px solid var(--khaki) !important;
    box-shadow: 0 10px 30px rgba(74, 52, 42, 0.15);
-   border: 1px solid var(--khaki);
 }
 
-/* Títulos del formulario AdminDash */
 .form-title-custom {
    font-family: var(--f-display);
    font-style: italic;
@@ -442,24 +439,11 @@ body {
    padding-bottom: 8px;
 }
 
-/* Etiquetas de los inputs AdminDash*/
-.form-label-custom {
-   font-family: var(--f-label);
-   font-size: 0.75rem;
-   letter-spacing: 0.12em;
-   text-transform: uppercase;
-   color: var(--camel);
-   font-weight: 600;
-   margin-bottom: 4px;
-}
-
-/* Entradas de texto (Inputs AdminDash) */
 .form-input-custom {
    padding: 10px 12px;
    border: 1px solid var(--khaki);
    border-radius: 4px;
    background-color: rgba(255, 255, 255, 0.8);
-   font-family: var(--f-body);
    color: var(--espresso);
    font-size: 0.95rem;
    transition: all 0.25s ease;
@@ -471,16 +455,17 @@ body {
    background-color: #fff;
    box-shadow: 0 0 5px rgba(182, 150, 109, 0.3);
 }
-/* Contenedor del Inventario*/
+
+/*Tabla de Inventario*/
 .table-card-custom {
-   background: #ffffff;
-   padding: 35px 30px;
-   border-radius: 12px;
-   box-shadow: 0 12px 40px rgba(43, 26, 17, 0.12);
-   border: 1px solid var(--khaki);
+   background: rgba(255, 255, 255, 0.75) !important;
+   backdrop-filter: blur(4px) !important;
+   padding: 35px 30px !important;
+   border-radius: 12px !important;
+   border: 1px solid var(--khaki) !important;
+   box-shadow: 0 12px 40px rgba(43, 26, 17, 0.08) !important;
 }
 
-/* Título de la Tabla */
 .table-title-custom {
    font-family: var(--f-display);
    font-style: italic;
@@ -491,71 +476,43 @@ body {
    padding-bottom: 10px;
 }
 
-/* Estructura de la Tabla */
 .table-custom {
    width: 100%;
    border-collapse: collapse;
-   text-align: left;
-
-   font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      Roboto,
-      sans-serif;
 }
 
-/* Encabezados de columnas*/
 .table-custom th {
    font-size: 0.85rem;
-   letter-spacing: 0.05em;
    text-transform: uppercase;
-   color: #1a0f0a;
+   color: #5a3d2e;
    padding: 14px 10px;
    border-bottom: 2px solid #5a3d2e;
    font-weight: 700;
 }
 
-/* Filas y Celdas*/
 .table-custom td {
-   padding: 16px 10px;
-   border-bottom: 1px solid #e6dfd5;
-   font-size: 0.95rem;
+   padding: 12px 10px;
+   border-bottom: 1px solid rgba(90, 61, 46, 0.15);
    color: #1a0f0a;
-   font-weight: 550;
    vertical-align: middle;
 }
 
-/* Título del libro dentro de la tabla */
+/* Estilos para bloque de libro*/
 .book-title-highlight {
-   color: #1a0f0a;
-   font-size: 1rem;
-   font-weight: 700;
-   display: block;
-   margin-bottom: 3px;
+   color: #1a0f0a !important;
+   font-size: 1.2rem !important;
+   font-style: italic !important;
+   font-weight: 800 !important;
+   display: block !important;
+   margin-bottom: 3px !important;
 }
 
-/* Autor del libro abajo del título */
-.table-custom td span {
-   font-size: 0.85rem !important;
-   color: #5a3d2e !important;
-   font-weight: 600 !important;
-   display: block;
+.table-custom {
+   width: 100%;
+   border-collapse: collapse;
+   background-color: transparent;
 }
-
-/* Etiqueta de Stock*/
-.stock-badge-custom {
-   background-color: #f7f4f0;
-   color: #1a0f0a;
-   padding: 6px 12px;
-   border-radius: 6px;
-   font-weight: 700;
-   border: 1px solid #d4c5b3;
-   font-size: 0.85rem;
-}
-
-/* Botón de eliminar */
+/* Elementos dash */
 .btn-delete-custom {
    background: none;
    color: #b81d13;
@@ -572,256 +529,8 @@ body {
    color: #7a100a;
 }
 
-/* transparencia form libros admin */
-.form-card-custom,
-.grid-panel {
-   background: rgba(255, 255, 255, 0.75) !important;
-   backdrop-filter: blur(4px) !important;
-   border-radius: 12px !important;
-   border: 1px solid var(--khaki) !important;
-}
-
-.table-card-custom {
-   background: rgba(255, 255, 255, 0.75) !important;
-   backdrop-filter: blur(4px) !important;
-   padding: 35px 30px !important;
-   border-radius: 12px !important;
-   box-shadow: 0 12px 40px rgba(43, 26, 17, 0.08) !important;
-   border: 1px solid var(--khaki) !important;
-}
-
-.table-custom td {
-   padding: 16px 10px !important;
-   border-bottom: 1px solid rgba(90, 61, 46, 0.15) !important;
-   font-size: 1.15rem !important;
-   font-style: italic !important;
-   color: #1a0f0a !important;
-   font-weight: 600 !important;
-   vertical-align: middle !important;
-}
-
-.book-title-highlight {
-   color: #1a0f0a !important;
-   font-size: 1.2rem !important;
-   font-style: italic !important;
-   font-weight: 800 !important;
-   display: block !important;
-   margin-bottom: 3px !important;
-}
-
-.table-custom td span {
-   font-size: 0.95rem !important;
-   color: #5a3d2e !important;
-   font-weight: 700 !important;
-   font-style: italic !important;
-   display: block !important;
-}
-/* Fondo de AdminDash */
-.app-workspace-bg {
-   min-height: 100vh;
-   background:
-      linear-gradient(160deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)),
-      url("https://i.pinimg.com/1200x/d1/d3/74/d1d37448d9e778455356e6bc4d692c2e.jpg")
-         center/cover no-repeat fixed;
-   padding: 30px;
-   color: var(--espresso);
-   font-family: var(--f-body);
-}
-
-/* Contenedor del Formulario AdminDash */
-.form-card-custom {
-   background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.95),
-      rgba(245, 241, 234, 0.95)
-   );
-   padding: 30px;
-   border-radius: 8px;
-   box-shadow: 0 10px 30px rgba(74, 52, 42, 0.15);
-   border: 1px solid var(--khaki);
-}
-
-/* Títulos del formulario AdminDash */
-.form-title-custom {
-   font-family: var(--f-display);
+.autor-text {
    font-style: italic;
-   color: var(--espresso);
-   margin-bottom: 20px;
-   border-bottom: 2px solid var(--khaki);
-   padding-bottom: 8px;
-}
-
-/* Etiquetas de los inputs AdminDash*/
-.form-label-custom {
-   font-family: var(--f-label);
-   font-size: 0.75rem;
-   letter-spacing: 0.12em;
-   text-transform: uppercase;
-   color: var(--camel);
-   font-weight: 600;
-   margin-bottom: 4px;
-}
-
-/* Entradas de texto (Inputs AdminDash) */
-.form-input-custom {
-   padding: 10px 12px;
-   border: 1px solid var(--khaki);
-   border-radius: 4px;
-   background-color: rgba(255, 255, 255, 0.8);
-   font-family: var(--f-body);
-   color: var(--espresso);
-   font-size: 0.95rem;
-   transition: all 0.25s ease;
-}
-
-.form-input-custom:focus {
-   outline: none;
-   border-color: var(--camel);
-   background-color: #fff;
-   box-shadow: 0 0 5px rgba(182, 150, 109, 0.3);
-}
-/* Contenedor del Inventario*/
-.table-card-custom {
-   background: #ffffff;
-   padding: 35px 30px;
-   border-radius: 12px;
-   box-shadow: 0 12px 40px rgba(43, 26, 17, 0.12);
-   border: 1px solid var(--khaki);
-}
-
-/* Título de la Tabla */
-.table-title-custom {
-   font-family: var(--f-display);
-   font-style: italic;
-   color: var(--espresso);
-   font-size: 1.8rem;
-   margin-bottom: 24px;
-   border-bottom: 2px solid var(--camel);
-   padding-bottom: 10px;
-}
-
-/* Estructura de la Tabla */
-.table-custom {
-   width: 100%;
-   border-collapse: collapse;
-   text-align: left;
-
-   font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      Roboto,
-      sans-serif;
-}
-
-/* Encabezados de columnas*/
-.table-custom th {
-   font-size: 0.85rem;
-   letter-spacing: 0.05em;
-   text-transform: uppercase;
-   color: #1a0f0a;
-   padding: 14px 10px;
-   border-bottom: 2px solid #5a3d2e;
-   font-weight: 700;
-}
-
-/* Filas y Celdas*/
-.table-custom td {
-   padding: 16px 10px;
-   border-bottom: 1px solid #e6dfd5;
-   font-size: 0.95rem;
-   color: #1a0f0a;
-   font-weight: 550;
-   vertical-align: middle;
-}
-
-/* Título del libro dentro de la tabla */
-.book-title-highlight {
-   color: #1a0f0a;
-   font-size: 1rem;
-   font-weight: 700;
-   display: block;
-   margin-bottom: 3px;
-}
-
-/* Autor del libro abajo del título */
-.table-custom td span {
-   font-size: 0.85rem !important;
-   color: #5a3d2e !important;
-   font-weight: 600 !important;
-   display: block;
-}
-
-/* Etiqueta de Stock*/
-.stock-badge-custom {
-   background-color: #f7f4f0;
-   color: #1a0f0a;
-   padding: 6px 12px;
-   border-radius: 6px;
-   font-weight: 700;
-   border: 1px solid #d4c5b3;
-   font-size: 0.85rem;
-}
-
-/* Botón de eliminar */
-.btn-delete-custom {
-   background: none;
-   color: #b81d13;
-   border: none;
-   padding: 0;
-   font-size: 0.85rem;
-   cursor: pointer;
-   text-decoration: underline;
-   font-weight: 700;
-   transition: color 0.2s ease;
-}
-
-.btn-delete-custom:hover {
-   color: #7a100a;
-}
-
-/* transparencia form libros admin */
-.form-card-custom,
-.grid-panel {
-   background: rgba(255, 255, 255, 0.75) !important;
-   backdrop-filter: blur(4px) !important;
-   border-radius: 12px !important;
-   border: 1px solid var(--khaki) !important;
-}
-
-.table-card-custom {
-   background: rgba(255, 255, 255, 0.75) !important;
-   backdrop-filter: blur(4px) !important;
-   padding: 35px 30px !important;
-   border-radius: 12px !important;
-   box-shadow: 0 12px 40px rgba(43, 26, 17, 0.08) !important;
-   border: 1px solid var(--khaki) !important;
-}
-
-.table-custom td {
-   padding: 16px 10px !important;
-   border-bottom: 1px solid rgba(90, 61, 46, 0.15) !important;
-   font-size: 1.15rem !important;
-   font-style: italic !important;
-   color: #1a0f0a !important;
-   font-weight: 600 !important;
-   vertical-align: middle !important;
-}
-
-.book-title-highlight {
-   color: #1a0f0a !important;
-   font-size: 1.2rem !important;
-   font-style: italic !important;
-   font-weight: 800 !important;
-   display: block !important;
-   margin-bottom: 3px !important;
-}
-
-.table-custom td span {
-   font-size: 0.95rem !important;
-   color: #5a3d2e !important;
-   font-weight: 700 !important;
-   font-style: italic !important;
-   display: block !important;
+   font-size: 0.9rem;
+   color: #666;
 }
