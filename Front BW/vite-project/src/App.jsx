@@ -67,6 +67,7 @@ export default function App() {
 
   return (
     <div className="app-wrapper">
+      
 
       <button
         className="btn-primary"
@@ -85,10 +86,11 @@ export default function App() {
 
         <div className="grid-panel">
 
-          <div className="grid-header">
-            <span className="grid-label">
-              Biblioteca Web
-            </span>
+          <div >
+             <div className="branding-header">
+        <img src="https://i.pinimg.com/736x/9e/12/6c/9e126c7b051587c224db1b03c45239e3.jpg" alt="Logo" className="branding-logo" />
+        <h1 className="brand-text">Libreria Indice</h1>
+      </div>
 
             <span className="book-count">
               {books.length} libros
