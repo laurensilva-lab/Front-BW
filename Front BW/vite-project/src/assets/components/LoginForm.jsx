@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 export default function LoginForm({
   onLogin,
   onRegister,
@@ -52,6 +53,11 @@ export default function LoginForm({
         onSubmit={handleSubmit}
         className="login-form-box"
       >
+        <div className="branding-header">
+        <img src="https://i.pinimg.com/736x/9e/12/6c/9e126c7b051587c224db1b03c45239e3.jpg" alt="Logo" className="branding-logo" />
+        <h1 className="brand-text">Libreria Indice</h1>
+      </div>
+
         <h2>Iniciar Sesión</h2>
 
         <input

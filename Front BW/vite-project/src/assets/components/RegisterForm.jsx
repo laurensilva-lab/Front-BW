@@ -40,6 +40,12 @@ export default function RegisterForm({ onBack }) {
 
   return (
     <div className="login-container">
+
+      <div className="branding-header">
+        <img src="https://i.pinimg.com/736x/9e/12/6c/9e126c7b051587c224db1b03c45239e3.jpg" alt="Logo" className="branding-logo" />
+        <h1 className="brand-text">Libreria Indice</h1>
+      </div>
+
       <form
         onSubmit={handleRegister}
         className="login-form-box"

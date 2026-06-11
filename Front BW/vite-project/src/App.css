@@ -299,7 +299,7 @@ body {
 
 
 .login-container {
-  background-image: url('https://i.pinimg.com/1200x/aa/ad/ec/aaadec8074df0a71968869f706d1557f.jpg');
+  background-image: url('https://i.pinimg.com/1200x/05/a2/cf/05a2cf3e3bed573621259968ea2db895.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -311,10 +311,38 @@ body {
 }
 
 .login-form-box {
-  background: rgba(255, 255, 255, 0.9); 
+  background: rgba(136, 116, 116, 0.932); 
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgb(0, 0, 0);
   text-align: center;
   width: 300px;
 }
+
+/*logo*/
+.branding-header {
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-start; 
+  padding: 80px;
+  position: absolute; 
+  top: 0;
+  left: 0;
+}
+
+.branding-logo {
+  width: 80px;
+  height: 80px; 
+  border-radius: 70%;
+  object-fit: cover; 
+  margin-right: 15px; 
+}
+
+.brand-text {
+  font-size: 64px;
+  font-weight: bold;
+  color: #4A342A;
+  text-shadow: 2px 2px 4px #B2967D;
+  margin: 0;
+}
+
