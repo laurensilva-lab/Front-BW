@@ -1,30 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Dashboard({ onLogout }) {
-   const [books, setBooks] = useState([
-      {
-         id: 1,
-         nombre: "Romeo y Julieta",
-         autor: "William Shakespeare",
-         genero: "Teatro / Tragedia",
-         año: "1597",
-         paginas: "150",
-         stock: 5,
-         precio: "450",
-         cover: "https://via.placeholder.com/50",
-      },
-      {
-         id: 2,
-         nombre: "La Metamorfosis",
-         autor: "Franz Kafka",
-         genero: "Ficción",
-         año: "1915",
-         paginas: "100",
-         stock: 3,
-         precio: "380",
-         cover: "https://via.placeholder.com/50",
-      },
-   ]);
+   const [books, setBooks] = useState([]);
+
+   useEffect(() => {
+      const fetchBooks = async () => {
+         try {
+            const response = await fetch("http://localhost:3000/api/books");
+            const data = await response.json();
+
+            if (response.ok) {
+               setBooks(data);
+            }
+         } catch (error) {
+            console.error("Error cargando libros:", error);
+         }
+      };
+
+      fetchBooks();
+   }, []);
 
    const [formData, setFormData] = useState({
       nombre: "",
@@ -41,68 +35,123 @@ export default function Dashboard({ onLogout }) {
       setFormData({ ...formData, [e.target.name]: e.target.value });
    };
 
-   const handleSubmit = (e) => {
+   const handleSubmit = async (e) => {
       e.preventDefault();
-      if (!formData.nombre || !formData.autor) return;
-      const newBook = {
-         ...formData,
-         id: Date.now(),
-         stock: parseInt(formData.stock) || 0,
-      };
-      setBooks([...books, newBook]);
-      setFormData({
-         nombre: "",
-         autor: "",
-         genero: "",
-         año: "",
-         paginas: "",
-         stock: "",
-         precio: "",
-         cover: "",
-      });
+
+      try {
+         const response = await fetch("http://localhost:3000/api/books", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(formData),
+         });
+
+         const data = await response.json();
+
+         if (response.ok) {
+            setBooks([...books, data]);
+
+            setFormData({
+               nombre: "",
+               autor: "",
+               genero: "",
+               año: "",
+               paginas: "",
+               stock: "",
+               precio: "",
+               cover: "",
+            });
+
+            alert("Libro guardado correctamente");
+         } else {
+            alert(data.message);
+         }
+      } catch (error) {
+         console.error(error);
+         alert("Error al guardar libro");
+      }
    };
 
    const handleDelete = (id) => {
       setBooks(books.filter((b) => b.id !== id));
    };
 
+   //  NUEVO: actualizar stock
+   const handleUpdateStock = async (id, newStock) => {
+      try {
+         const response = await fetch(
+            `http://localhost:3000/api/books/${id}`,
+            {
+               method: "PUT",
+               headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+               },
+               body: JSON.stringify({ stock: newStock }),
+            }
+         );
+
+         const data = await response.json();
+
+         if (response.ok) {
+            setBooks(
+               books.map((b) =>
+                  b.id === id ? { ...b, stock: newStock } : b
+               )
+            );
+         } else {
+            alert(data.message);
+         }
+      } catch (error) {
+         console.error(error);
+         alert("Error al actualizar stock");
+      }
+   };
+
    return (
       <div className="app-workspace-bg" style={{ paddingTop: "0px" }}>
          <header
-            style={{
-               display: "flex",
-               justifyContent: "space-between",
-               alignItems: "center",
-               paddingTop: "15px",
-               paddingBottom: "15px",
-               marginBottom: "30px",
-               borderBottom: "1px solid var(--khaki)",
-            }}
-         >
+   style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      paddingTop: "15px",
+      paddingBottom: "15px",
+      marginBottom: "30px",
+      borderBottom: "1px solid var(--khaki)",
+      position: "relative",
+   }}
+>
+   
+   <div className="logo">
+      <img
+         src="https://i.pinimg.com/736x/9e/12/6c/9e126c7b051587c224db1b03c45239e3.jpg"
+         alt="Logo"
+         className="logo-img"
+      />
+      <h1 className="logo-text" style={{ margin: 0, marginTop: "21px" }}>
+   Libreria Indice
+</h1>
+   </div>
 
-            <div className="logo">
-   <img src="https://i.pinimg.com/736x/9e/12/6c/9e126c7b051587c224db1b03c45239e3.jpg" alt="Logo" className="logo-img" />
-   <h1 className="logo-text">Libreria Indice</h1>
-</div>
-            <h1
-               className="app-title"
-               style={{
-                  margin: 0,
-                  color: "#fff",
-                  textShadow: "1px 1px 4px rgba(0, 0, 0, 0.4)",
-               }}
-            >
-               
-            </h1>
-            <button
-               className="btn-primary"
-               onClick={onLogout}
-               style={{ zIndex: 1000 }}
-            >
-               Cerrar sesión
-            </button>
-         </header>
-
+ 
+   <button
+      className="btn-primary"
+      onClick={onLogout}
+      style={{
+         position: "fixed",
+         top: "15px",
+         right: "20px",
+         zIndex: 9999,
+         padding: "10px 16px",
+         whiteSpace: "nowrap",
+      }}
+   >
+      Cerrar sesión
+   </button>
+</header>
          <div
             style={{
                display: "grid",
@@ -111,9 +160,10 @@ export default function Dashboard({ onLogout }) {
                alignItems: "start",
             }}
          >
-            {/* Formulario */}
+            {/* FORM */}
             <div className="form-card-custom">
                <h2 className="form-title-custom">Gestionar Libro</h2>
+
                <form
                   onSubmit={handleSubmit}
                   style={{
@@ -145,6 +195,7 @@ export default function Dashboard({ onLogout }) {
                      placeholder="Género"
                      className="form-input-custom"
                   />
+
                   <div
                      style={{
                         display: "grid",
@@ -167,6 +218,7 @@ export default function Dashboard({ onLogout }) {
                         className="form-input-custom"
                      />
                   </div>
+
                   <div
                      style={{
                         display: "grid",
@@ -190,6 +242,7 @@ export default function Dashboard({ onLogout }) {
                         className="form-input-custom"
                      />
                   </div>
+
                   <input
                      name="cover"
                      value={formData.cover}
@@ -197,6 +250,7 @@ export default function Dashboard({ onLogout }) {
                      placeholder="URL Imagen"
                      className="form-input-custom"
                   />
+
                   <button
                      type="submit"
                      className="btn-primary"
@@ -207,7 +261,7 @@ export default function Dashboard({ onLogout }) {
                </form>
             </div>
 
-            {/* Contenedor principal de la tabla*/}
+            {/* TABLA */}
             <div
                style={{
                   backgroundColor: "rgba(255, 255, 255, 0.85)",
@@ -218,51 +272,27 @@ export default function Dashboard({ onLogout }) {
                   marginTop: "20px",
                }}
             >
-               <h2
-                  className="table-title-custom"
-                  style={{ marginBottom: "20px" }}
-               >
+               <h2 style={{ marginBottom: "20px" }}>
                   📚 Inventario de Libros
                </h2>
 
-               <table
-                  className="table-custom"
-                  style={{ width: "100%", borderCollapse: "collapse" }}
-               >
+               <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
                      <tr style={{ borderBottom: "2px solid #5a3d2e" }}>
-                        <th style={{ padding: "10px", textAlign: "center" }}>
-                           PORTADA
-                        </th>
-                        <th style={{ padding: "10px", textAlign: "left" }}>
-                           LIBRO
-                        </th>
-                        <th style={{ padding: "10px", textAlign: "center" }}>
-                           GÉNERO
-                        </th>
-                        <th style={{ padding: "10px", textAlign: "center" }}>
-                           AÑO
-                        </th>
-                        <th style={{ padding: "10px", textAlign: "center" }}>
-                           PRECIO
-                        </th>
-                        <th style={{ padding: "10px", textAlign: "center" }}>
-                           STOCK
-                        </th>
-                        <th style={{ padding: "10px", textAlign: "center" }}>
-                           ACCIONES
-                        </th>
+                        <th>PORTADA</th>
+                        <th>LIBRO</th>
+                        <th>GÉNERO</th>
+                        <th>AÑO</th>
+                        <th>PRECIO</th>
+                        <th>STOCK</th>
+                        <th>ACCIONES</th>
                      </tr>
                   </thead>
+
                   <tbody>
                      {books.map((book) => (
-                        <tr
-                           key={book.id}
-                           style={{
-                              borderBottom: "1px solid rgba(90, 61, 46, 0.15)",
-                           }}
-                        >
-                           <td style={{ padding: "10px", textAlign: "center" }}>
+                        <tr key={book.id}>
+                           <td style={{ textAlign: "center" }}>
                               <img
                                  src={book.cover}
                                  alt="portada"
@@ -270,50 +300,71 @@ export default function Dashboard({ onLogout }) {
                                     width: "100px",
                                     height: "140px",
                                     objectFit: "cover",
-                                    borderRadius: "4px",
                                  }}
                               />
                            </td>
-                           <td style={{ padding: "10px" }}>
-                              <strong
-                                 style={{ display: "block", color: "#1a0f0a" }}
-                              >
-                                 {book.nombre}
-                              </strong>
-                              <span
-                                 style={{
-                                    fontStyle: "italic",
-                                    fontSize: "0.9rem",
-                                    color: "#666",
-                                 }}
-                              >
+
+                           <td>
+                              <strong>{book.nombre}</strong>
+                              <div style={{ fontStyle: "italic" }}>
                                  {book.autor}
-                              </span>
+                              </div>
                            </td>
-                           <td style={{ padding: "10px", textAlign: "center" }}>
+
+                           <td style={{ textAlign: "center" }}>
                               {book.genero}
                            </td>
-                           <td style={{ padding: "10px", textAlign: "center" }}>
+
+                           <td style={{ textAlign: "center" }}>
                               {book.año}
                            </td>
-                           <td style={{ padding: "10px", textAlign: "center" }}>
+
+                           <td style={{ textAlign: "center" }}>
                               $ {book.precio}
                            </td>
-                           <td style={{ padding: "10px", textAlign: "center" }}>
+
+                           <td style={{ textAlign: "center" }}>
                               <input
                                  type="number"
-                                 defaultValue={book.stock}
+                                 value={book.stock}
+                                 onChange={(e) => {
+                                    const newStock = Number(e.target.value);
+
+                                    setBooks(
+                                       books.map((b) =>
+                                          b.id === book.id
+                                             ? { ...b, stock: newStock }
+                                             : b
+                                       )
+                                    );
+                                 }}
                                  style={{
-                                    width: "45px",
+                                    width: "60px",
                                     textAlign: "center",
-                                    padding: "4px",
                                  }}
                               />
+
+                              <button
+                                 onClick={() =>
+                                    handleUpdateStock(book.id, book.stock)
+                                 }
+                                 style={{
+                                    marginLeft: "10px",
+                                    padding: "5px 10px",
+                                    background: "#5a3d2e",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "4px",
+                                    cursor: "pointer",
+                                 }}
+                              >
+                                 Actualizar
+                              </button>
                            </td>
-                           <td style={{ padding: "10px", textAlign: "center" }}>
+
+                           <td style={{ textAlign: "center" }}>
                               <button
                                  onClick={() => handleDelete(book.id)}
-                                 className="btn-delete-custom"
                               >
                                  Eliminar
                               </button>

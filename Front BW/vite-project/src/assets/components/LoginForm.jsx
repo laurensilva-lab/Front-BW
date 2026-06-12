@@ -29,13 +29,12 @@ export default function LoginForm({
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem(
-          "token",
-          data.token
-        );
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("role", data.role);
 
-        onLogin();
-      } else {
+  onLogin(data.role);
+ }
+  else {
         alert(data.message);
       }
     } catch (error) {
