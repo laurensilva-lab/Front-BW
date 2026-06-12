@@ -74,10 +74,31 @@ export default function Dashboard({ onLogout }) {
       }
    };
 
-   const handleDelete = (id) => {
-      setBooks(books.filter((b) => b.id !== id));
-   };
+ const handleDelete = async (id) => {
+   try {
+      const response = await fetch(
+         `http://localhost:3000/api/books/${id}`,
+         {
+            method: "DELETE",
+            headers: {
+               Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+         }
+      );
 
+      const data = await response.json();
+
+      if (response.ok) {
+         setBooks(books.filter((b) => b.id !== id));
+         alert("Libro eliminado correctamente");
+      } else {
+         alert(data.message);
+      }
+   } catch (error) {
+      console.error(error);
+      alert("Error al eliminar libro");
+   }
+};
    //  NUEVO: actualizar stock
    const handleUpdateStock = async (id, newStock) => {
       try {
