@@ -79,6 +79,11 @@ export default function Dashboard({ onLogout }) {
                borderBottom: "1px solid var(--khaki)",
             }}
          >
+
+            <div className="logo">
+   <img src="https://i.pinimg.com/736x/9e/12/6c/9e126c7b051587c224db1b03c45239e3.jpg" alt="Logo" className="logo-img" />
+   <h1 className="logo-text">Libreria Indice</h1>
+</div>
             <h1
                className="app-title"
                style={{
@@ -87,7 +92,7 @@ export default function Dashboard({ onLogout }) {
                   textShadow: "1px 1px 4px rgba(0, 0, 0, 0.4)",
                }}
             >
-               Libreria Indice
+               
             </h1>
             <button
                className="btn-primary"
