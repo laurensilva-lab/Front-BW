@@ -201,7 +201,7 @@ export default function ClienteView({ onLogout }) {
                </div>
             </section>
 
-            <aside className="detail-panel">
+            <div className="detail-panel">
                {selectedBook ? (
                   <div className="detail-content">
                      <div className="detail-cover-wrap">
@@ -224,7 +224,7 @@ export default function ClienteView({ onLogout }) {
                ) : (
                   <h2>📖 Selecciona un libro</h2>
                )}
-            </aside>
+            </div>
          </main>
 
          <div
