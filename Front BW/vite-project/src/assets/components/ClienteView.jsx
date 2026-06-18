@@ -204,23 +204,45 @@ export default function ClienteView({ onLogout }) {
             <div className="detail-panel">
                {selectedBook ? (
                   <div className="detail-content">
-                     <div className="detail-cover-wrap">
-                        <img
-                           src={selectedBook.cover}
-                           alt={selectedBook.nombre}
-                           className="detail-cover"
-                        />
-                     </div>
-                     <h2 className="detail-title">{selectedBook.nombre}</h2>
-                     <p className="detail-author">{selectedBook.autor}</p>
-                     <p className="meta-value">$ {selectedBook.precio}</p>
-                     <button
-                        className="btn-primary"
-                        onClick={() => addToCart(selectedBook)}
-                     >
-                        Comprar
-                     </button>
-                  </div>
+              <div className="detail-cover-wrap">
+      <img
+         src={selectedBook.cover}
+         alt={selectedBook.nombre}
+         className="detail-cover"
+      />
+            </div>
+
+           <h2 className="detail-title">{selectedBook.nombre}</h2>
+
+           <p className="detail-author">{selectedBook.autor}</p>
+
+           <p>
+           <strong>Género:</strong> {selectedBook.genero}
+           </p>
+
+          <p>
+          <strong>Año:</strong> {selectedBook.año}
+          </p>
+
+           <p>
+          <strong>Páginas:</strong> {selectedBook.paginas}
+          </p>
+
+          <p>
+         <strong>Stock:</strong> {selectedBook.stock}
+          </p>
+
+          <p className="meta-value">
+          <strong>Precio:</strong> ${selectedBook.precio}
+          </p>
+
+           <button
+          className="btn-primary"
+         onClick={() => addToCart(selectedBook)}
+   >
+            Comprar
+          </button>
+</div>
                ) : (
                   <h2>📖 Selecciona un libro</h2>
                )}
