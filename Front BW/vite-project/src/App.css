@@ -595,11 +595,11 @@ RESPONSIVE
    padding-top: 20px;
    border-top: 2px solid #eee;
 }
-
-/* Estilos para los inputs dentro del formulario del carrito */
+/* Estilos generales para los inputs y textarea dentro del formulario */
 .shipping-form input,
 .shipping-form textarea {
    width: 100%;
+   padding: 12px;
    margin-bottom: 12px;
    border: 1px solid #ccc;
    border-radius: 6px;

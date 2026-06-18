@@ -238,7 +238,6 @@ export default function ClienteView({ onLogout }) {
                         onChange={handleInputChange}
                         style={{ width: "100%", marginBottom: "10px" }}
                      />
-                     {/* Ajuste en el JSX */}
                      <div className="row-container">
                         <input
                            name="tarjetaVencimiento"
