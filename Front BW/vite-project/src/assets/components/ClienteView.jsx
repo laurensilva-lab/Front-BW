@@ -46,6 +46,9 @@ export default function ClienteView({ onLogout }) {
       nombre: "",
       direccion: "",
       nota: "",
+      tarjetaNombre: "", // Nuevo
+      tarjetaNumero: "", // Nuevo
+      tarjetaVencimiento: "", // Nuevo
    });
 
    const addToCart = (book) => {
@@ -196,7 +199,7 @@ export default function ClienteView({ onLogout }) {
 
                {step === "shipping" && (
                   <div className="shipping-form" style={{ padding: "20px" }}>
-                     <h3>Datos de envío y pago</h3>
+                     <h3>Datos de envío</h3>
                      <input
                         name="nombre"
                         placeholder="Nombre completo"
@@ -211,6 +214,30 @@ export default function ClienteView({ onLogout }) {
                         onChange={handleInputChange}
                         style={{ width: "100%", marginBottom: "10px" }}
                      />
+
+                     <h3>Datos de pago</h3>
+                     <input
+                        name="tarjetaNombre"
+                        placeholder="Nombre en la tarjeta"
+                        value={formData.tarjetaNombre}
+                        onChange={handleInputChange}
+                        style={{ width: "100%", marginBottom: "10px" }}
+                     />
+                     <input
+                        name="tarjetaNumero"
+                        placeholder="Número de tarjeta"
+                        value={formData.tarjetaNumero}
+                        onChange={handleInputChange}
+                        style={{ width: "100%", marginBottom: "10px" }}
+                     />
+                     <input
+                        name="tarjetaVencimiento"
+                        placeholder="MM/AA"
+                        value={formData.tarjetaVencimiento}
+                        onChange={handleInputChange}
+                        style={{ width: "100%", marginBottom: "10px" }}
+                     />
+
                      <textarea
                         name="nota"
                         placeholder="Nota para el librero"
@@ -218,6 +245,7 @@ export default function ClienteView({ onLogout }) {
                         onChange={handleInputChange}
                         style={{ width: "100%", marginBottom: "10px" }}
                      />
+
                      <button
                         className="btn-primary"
                         onClick={handlePayment}
