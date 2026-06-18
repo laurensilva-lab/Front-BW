@@ -126,108 +126,113 @@ export default function ClienteView({ onLogout }) {
             </aside>
          </main>
 
-         {/* CARRITO */}
+         {/* CARRITO - PANELES DE APOYO */}
          <div
             className={`cart-side-overlay ${isCartOpen ? "open" : ""}`}
             onClick={() => setIsCartOpen(false)}
          ></div>
-         {/* --- COMIENZA EL CAMBIO --- */}
-         <div className="cart-side-items">
-            {step === "cart" && (
-               <>
-                  {cartItems.map((item, index) => (
-                     <div key={index} className="cart-item-row">
-                        <img src={item.cover} className="cart-item-img" />
-                        <div className="cart-item-info">
-                           <p>{item.nombre}</p>
+
+         <div className={`cart-side-panel ${isCartOpen ? "open" : ""}`}>
+            <div className="cart-side-items">
+               {step === "cart" && (
+                  <>
+                     {cartItems.map((item, index) => (
+                        <div key={index} className="cart-item-row">
+                           <img
+                              src={item.cover}
+                              className="cart-item-img"
+                              alt={item.nombre}
+                           />
+                           <div className="cart-item-info">
+                              <p>{item.nombre}</p>
+                           </div>
+                           <p className="cart-item-price">$ {item.precio}</p>
+                           <button
+                              className="btn-delete-custom"
+                              onClick={() => removeItem(index)}
+                           >
+                              🗑️
+                           </button>
                         </div>
-                        <p className="cart-item-price">$ {item.precio}</p>
+                     ))}
+                     <div className="cart-side-footer">
+                        <p>
+                           Total: ${" "}
+                           {cartItems.reduce(
+                              (acc, item) => acc + item.precio,
+                              0,
+                           )}
+                        </p>
                         <button
-                           className="btn-delete-custom"
-                           onClick={() => removeItem(index)}
+                           className="btn-primary"
+                           style={{ width: "100%" }}
+                           onClick={() => setStep("shipping")}
                         >
-                           🗑️
+                           FINALIZAR COMPRA
                         </button>
                      </div>
-                  ))}
-                  <div className="cart-side-footer">
-                     <p>
-                        Total: $
-                        {cartItems.reduce((acc, item) => acc + item.precio, 0)}
-                     </p>
+                  </>
+               )}
+               {step === "shipping" && (
+                  <div style={{ padding: "20px" }}>
+                     <h3>Forma de entrega</h3>
+                     <label>
+                        <input type="radio" name="delivery" defaultChecked />{" "}
+                        Enviar a domicilio
+                     </label>
+                     <br />
+                     <label>
+                        <input type="radio" name="delivery" /> Retirar en punto
+                     </label>
                      <button
                         className="btn-primary"
-                        style={{ width: "100%" }}
-                        onClick={() => setStep("shipping")}
+                        style={{ marginTop: "20px", width: "100%" }}
+                        onClick={() => setStep("payment")}
                      >
-                        FINALIZAR COMPRA
+                        Continuar al pago
                      </button>
                   </div>
-               </>
-            )}
-
-            {step === "shipping" && (
-               <div style={{ padding: "20px" }}>
-                  <h3>Forma de entrega</h3>
-                  <label>
-                     <input type="radio" name="delivery" defaultChecked />{" "}
-                     Enviar a domicilio
-                  </label>
-                  <br />
-                  <label>
-                     <input type="radio" name="delivery" /> Retirar en punto
-                  </label>
-                  <button
-                     className="btn-primary"
-                     style={{ marginTop: "20px", width: "100%" }}
-                     onClick={() => setStep("payment")}
-                  >
-                     Continuar al pago
-                  </button>
-               </div>
-            )}
-
-            {step === "payment" && (
-               <div style={{ padding: "20px" }}>
-                  <h3>Método de pago</h3>
-                  <input
-                     type="text"
-                     placeholder="Número de tarjeta"
-                     className="form-input-custom"
-                     style={{ width: "100%", marginBottom: "10px" }}
-                  />
-                  <input
-                     type="text"
-                     placeholder="Nombre titular"
-                     className="form-input-custom"
-                     style={{ width: "100%" }}
-                  />
-                  <button
-                     className="btn-primary"
-                     style={{ marginTop: "20px", width: "100%" }}
-                     onClick={() => setStep("success")}
-                  >
-                     Confirmar compra
-                  </button>
-               </div>
-            )}
-
-            {step === "success" && (
-               <div style={{ textAlign: "center", padding: "40px" }}>
-                  <h3>¡Gracias por tu compra!</h3>
-                  <p>Fue realizada con éxito.</p>
-                  <button
-                     className="btn-primary"
-                     onClick={() => {
-                        setIsCartOpen(false);
-                        setStep("cart");
-                        setCartItems([]);
-                     }}
-                  >
-                     Cerrar
-                  </button>
-               </div>
-            )}
+               )}
+               {step === "payment" && (
+                  <div style={{ padding: "20px" }}>
+                     <h3>Método de pago</h3>
+                     <input
+                        type="text"
+                        placeholder="Número de tarjeta"
+                        className="form-input-custom"
+                        style={{ width: "100%", marginBottom: "10px" }}
+                     />
+                     <input
+                        type="text"
+                        placeholder="Nombre titular"
+                        className="form-input-custom"
+                        style={{ width: "100%" }}
+                     />
+                     <button
+                        className="btn-primary"
+                        style={{ marginTop: "20px", width: "100%" }}
+                        onClick={() => setStep("success")}
+                     >
+                        Confirmar compra
+                     </button>
+                  </div>
+               )}
+               {step === "success" && (
+                  <div style={{ textAlign: "center", padding: "40px" }}>
+                     <h3>¡Gracias por tu compra!</h3>
+                     <button
+                        className="btn-primary"
+                        onClick={() => {
+                           setIsCartOpen(false);
+                           setStep("cart");
+                           setCartItems([]);
+                        }}
+                     >
+                        Cerrar
+                     </button>
+                  </div>
+               )}
+            </div>
          </div>
       </>
    );
