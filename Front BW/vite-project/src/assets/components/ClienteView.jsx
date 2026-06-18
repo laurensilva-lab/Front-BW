@@ -46,9 +46,10 @@ export default function ClienteView({ onLogout }) {
       nombre: "",
       direccion: "",
       nota: "",
-      tarjetaNombre: "", // Nuevo
-      tarjetaNumero: "", // Nuevo
-      tarjetaVencimiento: "", // Nuevo
+      tarjetaNombre: "",
+      tarjetaNumero: "",
+      tarjetaVencimiento: "",
+      tarjetaCVV: "",
    });
 
    const addToCart = (book) => {
@@ -214,6 +215,13 @@ export default function ClienteView({ onLogout }) {
                         onChange={handleInputChange}
                         style={{ width: "100%", marginBottom: "10px" }}
                      />
+                     <textarea
+                        name="nota"
+                        placeholder="Nota para el repartidor"
+                        value={formData.nota}
+                        onChange={handleInputChange}
+                        style={{ width: "100%", marginBottom: "10px" }}
+                     />
 
                      <h3>Datos de pago</h3>
                      <input
@@ -230,21 +238,21 @@ export default function ClienteView({ onLogout }) {
                         onChange={handleInputChange}
                         style={{ width: "100%", marginBottom: "10px" }}
                      />
-                     <input
-                        name="tarjetaVencimiento"
-                        placeholder="MM/AA"
-                        value={formData.tarjetaVencimiento}
-                        onChange={handleInputChange}
-                        style={{ width: "100%", marginBottom: "10px" }}
-                     />
-
-                     <textarea
-                        name="nota"
-                        placeholder="Nota para el librero"
-                        value={formData.nota}
-                        onChange={handleInputChange}
-                        style={{ width: "100%", marginBottom: "10px" }}
-                     />
+                     {/* Ajuste en el JSX */}
+                     <div className="row-container">
+                        <input
+                           name="tarjetaVencimiento"
+                           placeholder="MM/AA"
+                           value={formData.tarjetaVencimiento}
+                           onChange={handleInputChange}
+                        />
+                        <input
+                           name="tarjetaCVV"
+                           placeholder="CVV"
+                           value={formData.tarjetaCVV}
+                           onChange={handleInputChange}
+                        />
+                     </div>
 
                      <button
                         className="btn-primary"

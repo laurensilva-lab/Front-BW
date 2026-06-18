@@ -595,3 +595,26 @@ RESPONSIVE
    padding-top: 20px;
    border-top: 2px solid #eee;
 }
+
+/* Estilos para los inputs dentro del formulario del carrito */
+.shipping-form input,
+.shipping-form textarea {
+   width: 100%;
+   margin-bottom: 12px;
+   border: 1px solid #ccc;
+   border-radius: 6px;
+   font-size: 14px;
+   box-sizing: border-box;
+}
+
+.shipping-form input:focus,
+.shipping-form textarea:focus {
+   border-color: #007bff;
+   outline: none;
+   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+.shipping-form .row-container {
+   display: flex;
+   gap: 10px;
+}
