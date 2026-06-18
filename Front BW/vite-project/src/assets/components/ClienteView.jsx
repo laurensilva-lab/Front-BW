@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 
+import foto1 from "./img/1.png";
+import foto2 from "./img/2.png";
+import foto3 from "./img/3.png";
 const misLibros = [
    {
       id: 100,
@@ -35,6 +38,47 @@ const misLibros = [
       cover: "https://i.pinimg.com/736x/7b/65/2c/7b652ccb6c0b4c59b63191fb7b7d4c88.jpg",
    },
 ];
+function MiCarrusel() {
+   const imagenes = [foto1, foto2, foto3];
+   const [index, setIndex] = useState(0);
+
+   useEffect(() => {
+      const intervalo = setInterval(() => {
+         setIndex((prevIndex) => (prevIndex + 1) % imagenes.length);
+      }, 3000);
+      return () => clearInterval(intervalo);
+   }, [imagenes.length]);
+
+   const siguiente = () => setIndex((index + 1) % imagenes.length);
+   const anterior = () =>
+      setIndex((index - 1 + imagenes.length) % imagenes.length);
+
+   return (
+      <div className="custom-carousel">
+         <img
+            src={imagenes[index]}
+            alt={`Slide ${index + 1}`}
+            className="carousel-img"
+         />
+         <button onClick={anterior} className="carousel-btn prev">
+            &#10094;
+         </button>
+         <button onClick={siguiente} className="carousel-btn next">
+            &#10095;
+         </button>
+
+         <div className="carousel-dots">
+            {imagenes.map((_, i) => (
+               <div
+                  key={i}
+                  onClick={() => setIndex(i)}
+                  className={`carousel-dot ${i === index ? "active" : ""}`}
+               />
+            ))}
+         </div>
+      </div>
+   );
+}
 
 export default function ClienteView({ onLogout }) {
    const [books, setBooks] = useState([]);
@@ -99,34 +143,58 @@ export default function ClienteView({ onLogout }) {
    return (
       <>
          <header className="app-header">
-            <h1 className="app-title">📚 Librería Índice</h1>
+            <h1 className="app-title">
+               <div className="logo">
+                  <img
+                     src="https://i.pinimg.com/736x/9e/12/6c/9e126c7b051587c224db1b03c45239e3.jpg"
+                     alt="Logo"
+                     className="logo-img"
+                  />
+                  <h1
+                     className="logo-text"
+                     style={{ margin: 0, marginTop: "21px" }}
+                  >
+                     Libreria Indice
+                  </h1>
+               </div>
+            </h1>
+
             <button className="btn-primary" onClick={onLogout}>
                Cerrar sesión
             </button>
          </header>
-
          <main className="main-layout">
             <section className="grid-panel">
                <div className="grid-header">
                   <span className="grid-label">Catálogo</span>
+
                   <span className="book-count">
                      {books.length} libros disponibles
                   </span>
                </div>
+
+               <MiCarrusel />
+
                <div className="book-grid">
                   {books.map((book) => (
                      <button
                         key={book.id}
-                        className="book-card"
+                        className={`book-card ${
+                           selectedBook?.id === book.id ? "active" : ""
+                        }`}
                         onClick={() => setSelectedBook(book)}
                      >
                         <div className="book-cover-wrap">
                            <img
-                              src={book.cover}
+                              src={
+                                 book.cover ||
+                                 "https://via.placeholder.com/200x300"
+                              }
                               alt={book.nombre}
                               className="book-cover"
                            />
                         </div>
+
                         <span className="book-card-title">{book.nombre}</span>
                      </button>
                   ))}
