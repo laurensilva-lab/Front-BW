@@ -42,11 +42,15 @@ export default function ClienteView({ onLogout }) {
    const [isCartOpen, setIsCartOpen] = useState(false);
    const [cartItems, setCartItems] = useState([]);
    const [step, setStep] = useState("cart");
+   const [formData, setFormData] = useState({
+      nombre: "",
+      direccion: "",
+      nota: "",
+   });
 
    const addToCart = (book) => {
       setCartItems((prevItems) => {
          const existingItem = prevItems.find((item) => item.id === book.id);
-
          if (existingItem) {
             return prevItems.map((item) =>
                item.id === book.id
@@ -54,10 +58,8 @@ export default function ClienteView({ onLogout }) {
                   : item,
             );
          }
-
          return [...prevItems, { ...book, cantidad: 1 }];
       });
-
       setIsCartOpen(true);
    };
 
@@ -74,6 +76,21 @@ export default function ClienteView({ onLogout }) {
             setBooks(misLibros);
          });
    }, []);
+
+   const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+   };
+
+   const handlePayment = () => {
+      alert("Procesando pago...");
+      setTimeout(() => {
+         alert("¡Pago exitoso! Gracias por tu compra.");
+         setStep("cart");
+         setCartItems([]);
+         setIsCartOpen(false);
+      }, 2000);
+   };
 
    return (
       <>
@@ -138,7 +155,6 @@ export default function ClienteView({ onLogout }) {
             </aside>
          </main>
 
-         {/* CARRITO */}
          <div
             className={`cart-side-overlay ${isCartOpen ? "open" : ""}`}
             onClick={() => setIsCartOpen(false)}
@@ -177,23 +193,67 @@ export default function ClienteView({ onLogout }) {
                      ))}
                   </>
                )}
+
+               {step === "shipping" && (
+                  <div className="shipping-form" style={{ padding: "20px" }}>
+                     <h3>Datos de envío y pago</h3>
+                     <input
+                        name="nombre"
+                        placeholder="Nombre completo"
+                        value={formData.nombre}
+                        onChange={handleInputChange}
+                        style={{ width: "100%", marginBottom: "10px" }}
+                     />
+                     <input
+                        name="direccion"
+                        placeholder="Dirección"
+                        value={formData.direccion}
+                        onChange={handleInputChange}
+                        style={{ width: "100%", marginBottom: "10px" }}
+                     />
+                     <textarea
+                        name="nota"
+                        placeholder="Nota para el librero"
+                        value={formData.nota}
+                        onChange={handleInputChange}
+                        style={{ width: "100%", marginBottom: "10px" }}
+                     />
+                     <button
+                        className="btn-primary"
+                        onClick={handlePayment}
+                        style={{ width: "100%" }}
+                     >
+                        PAGAR AHORA
+                     </button>
+                     <button
+                        className="btn-secondary"
+                        onClick={() => setStep("cart")}
+                        style={{ width: "100%", marginTop: "10px" }}
+                     >
+                        Volver al carrito
+                     </button>
+                  </div>
+               )}
             </div>
-            <div className="cart-side-footer">
-               <p>
-                  Importe total: ${" "}
-                  {cartItems.reduce(
-                     (acc, item) => acc + item.precio * (item.cantidad || 1),
-                     0,
-                  )}
-               </p>
-               <button
-                  className="btn-primary"
-                  style={{ width: "100%" }}
-                  onClick={() => setStep("shipping")}
-               >
-                  FINALIZAR COMPRA
-               </button>
-            </div>
+
+            {step === "cart" && (
+               <div className="cart-side-footer">
+                  <p>
+                     Importe total: ${" "}
+                     {cartItems.reduce(
+                        (acc, item) => acc + item.precio * (item.cantidad || 1),
+                        0,
+                     )}
+                  </p>
+                  <button
+                     className="btn-primary"
+                     style={{ width: "100%" }}
+                     onClick={() => setStep("shipping")}
+                  >
+                     FINALIZAR COMPRA
+                  </button>
+               </div>
+            )}
          </div>
       </>
    );
