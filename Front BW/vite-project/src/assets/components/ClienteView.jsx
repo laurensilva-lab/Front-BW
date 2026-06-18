@@ -44,13 +44,25 @@ export default function ClienteView({ onLogout }) {
    const [step, setStep] = useState("cart");
 
    const addToCart = (book) => {
-      setCartItems([...cartItems, book]);
+      setCartItems((prevItems) => {
+         const existingItem = prevItems.find((item) => item.id === book.id);
+
+         if (existingItem) {
+            return prevItems.map((item) =>
+               item.id === book.id
+                  ? { ...item, cantidad: (Number(item.cantidad) || 0) + 1 }
+                  : item,
+            );
+         }
+
+         return [...prevItems, { ...book, cantidad: 1 }];
+      });
+
       setIsCartOpen(true);
    };
 
-   const removeItem = (index) => {
-      const newCart = cartItems.filter((_, i) => i !== index);
-      setCartItems(newCart);
+   const removeItem = (id) => {
+      setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
    };
 
    useEffect(() => {
@@ -126,18 +138,23 @@ export default function ClienteView({ onLogout }) {
             </aside>
          </main>
 
-         {/* CARRITO - PANELES DE APOYO */}
+         {/* CARRITO */}
          <div
             className={`cart-side-overlay ${isCartOpen ? "open" : ""}`}
             onClick={() => setIsCartOpen(false)}
          ></div>
 
          <div className={`cart-side-panel ${isCartOpen ? "open" : ""}`}>
+            <div className="cart-side-header">
+               <h3>ARTÍCULOS ({cartItems.length})</h3>
+               <button onClick={() => setIsCartOpen(false)}>×</button>
+            </div>
+
             <div className="cart-side-items">
                {step === "cart" && (
                   <>
-                     {cartItems.map((item, index) => (
-                        <div key={index} className="cart-item-row">
+                     {cartItems.map((item) => (
+                        <div key={item.id} className="cart-item-row">
                            <img
                               src={item.cover}
                               className="cart-item-img"
@@ -145,93 +162,37 @@ export default function ClienteView({ onLogout }) {
                            />
                            <div className="cart-item-info">
                               <p>{item.nombre}</p>
+                              <small>CANT: {item.cantidad}</small>
                            </div>
-                           <p className="cart-item-price">$ {item.precio}</p>
+                           <p className="cart-item-price">
+                              $ {item.precio * item.cantidad}
+                           </p>
                            <button
                               className="btn-delete-custom"
-                              onClick={() => removeItem(index)}
+                              onClick={() => removeItem(item.id)}
                            >
                               🗑️
                            </button>
                         </div>
                      ))}
-                     <div className="cart-side-footer">
-                        <p>
-                           Total: ${" "}
-                           {cartItems.reduce(
-                              (acc, item) => acc + item.precio,
-                              0,
-                           )}
-                        </p>
-                        <button
-                           className="btn-primary"
-                           style={{ width: "100%" }}
-                           onClick={() => setStep("shipping")}
-                        >
-                           FINALIZAR COMPRA
-                        </button>
-                     </div>
                   </>
                )}
-               {step === "shipping" && (
-                  <div style={{ padding: "20px" }}>
-                     <h3>Forma de entrega</h3>
-                     <label>
-                        <input type="radio" name="delivery" defaultChecked />{" "}
-                        Enviar a domicilio
-                     </label>
-                     <br />
-                     <label>
-                        <input type="radio" name="delivery" /> Retirar en punto
-                     </label>
-                     <button
-                        className="btn-primary"
-                        style={{ marginTop: "20px", width: "100%" }}
-                        onClick={() => setStep("payment")}
-                     >
-                        Continuar al pago
-                     </button>
-                  </div>
-               )}
-               {step === "payment" && (
-                  <div style={{ padding: "20px" }}>
-                     <h3>Método de pago</h3>
-                     <input
-                        type="text"
-                        placeholder="Número de tarjeta"
-                        className="form-input-custom"
-                        style={{ width: "100%", marginBottom: "10px" }}
-                     />
-                     <input
-                        type="text"
-                        placeholder="Nombre titular"
-                        className="form-input-custom"
-                        style={{ width: "100%" }}
-                     />
-                     <button
-                        className="btn-primary"
-                        style={{ marginTop: "20px", width: "100%" }}
-                        onClick={() => setStep("success")}
-                     >
-                        Confirmar compra
-                     </button>
-                  </div>
-               )}
-               {step === "success" && (
-                  <div style={{ textAlign: "center", padding: "40px" }}>
-                     <h3>¡Gracias por tu compra!</h3>
-                     <button
-                        className="btn-primary"
-                        onClick={() => {
-                           setIsCartOpen(false);
-                           setStep("cart");
-                           setCartItems([]);
-                        }}
-                     >
-                        Cerrar
-                     </button>
-                  </div>
-               )}
+            </div>
+            <div className="cart-side-footer">
+               <p>
+                  Importe total: ${" "}
+                  {cartItems.reduce(
+                     (acc, item) => acc + item.precio * (item.cantidad || 1),
+                     0,
+                  )}
+               </p>
+               <button
+                  className="btn-primary"
+                  style={{ width: "100%" }}
+                  onClick={() => setStep("shipping")}
+               >
+                  FINALIZAR COMPRA
+               </button>
             </div>
          </div>
       </>
