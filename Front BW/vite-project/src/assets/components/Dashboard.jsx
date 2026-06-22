@@ -152,7 +152,7 @@ export default function Dashboard({ onLogout }) {
          alt="Logo"
          className="logo-img"
       />
-      <h1 className="logo-text" style={{ margin: 0, marginTop: "21px" }}>
+      <h1 className="logo-text" style={{ marginLeft: "10px" }}>
    Libreria Indice
 </h1>
    </div>

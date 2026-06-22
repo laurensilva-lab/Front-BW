@@ -152,7 +152,7 @@ export default function ClienteView({ onLogout }) {
                   />
                   <h1
                      className="logo-text"
-                     style={{ margin: 0, marginTop: "21px" }}
+                     style={{ marginLeft: "10px" }}
                   >
                      Libreria Indice
                   </h1>
