@@ -204,45 +204,45 @@ export default function ClienteView({ onLogout }) {
             <div className="detail-panel">
                {selectedBook ? (
                   <div className="detail-content">
-              <div className="detail-cover-wrap">
-      <img
-         src={selectedBook.cover}
-         alt={selectedBook.nombre}
-         className="detail-cover"
-      />
-            </div>
+                     <div className="detail-cover-wrap">
+                        <img
+                           src={selectedBook.cover}
+                           alt={selectedBook.nombre}
+                           className="detail-cover"
+                        />
+                     </div>
 
-           <h2 className="detail-title">{selectedBook.nombre}</h2>
+                     <h2 className="detail-title">{selectedBook.nombre}</h2>
 
-           <p className="detail-author">{selectedBook.autor}</p>
+                     <p className="detail-author">{selectedBook.autor}</p>
 
-           <p>
-           <strong>Género:</strong> {selectedBook.genero}
-           </p>
+                     <p>
+                        <strong>Género:</strong> {selectedBook.genero}
+                     </p>
 
-          <p>
-          <strong>Año:</strong> {selectedBook.año}
-          </p>
+                     <p>
+                        <strong>Año:</strong> {selectedBook.año}
+                     </p>
 
-           <p>
-          <strong>Páginas:</strong> {selectedBook.paginas}
-          </p>
+                     <p>
+                        <strong>Páginas:</strong> {selectedBook.paginas}
+                     </p>
 
-          <p>
-         <strong>Stock:</strong> {selectedBook.stock}
-          </p>
+                     <p>
+                        <strong>Stock:</strong> {selectedBook.stock}
+                     </p>
 
-          <p className="meta-value">
-          <strong>Precio:</strong> ${selectedBook.precio}
-          </p>
+                     <p className="meta-value">
+                        <strong>Precio:</strong> ${selectedBook.precio}
+                     </p>
 
-           <button
-          className="btn-primary"
-         onClick={() => addToCart(selectedBook)}
-   >
-            Comprar
-          </button>
-</div>
+                     <button
+                        className="btn-primary"
+                        onClick={() => addToCart(selectedBook)}
+                     >
+                        Comprar
+                     </button>
+                  </div>
                ) : (
                   <h2>📖 Selecciona un libro</h2>
                )}
@@ -380,6 +380,64 @@ export default function ClienteView({ onLogout }) {
                </div>
             )}
          </div>
+         <footer className="app-footer">
+            <div className="footer-container">
+               <div className="footer-info">
+                  <h4>Sobre Librería Índice</h4>
+                  <p>
+                     Somos 4 estudiantes de Anima Fines apasionados por la
+                     lectura. Creamos este proyecto para conectar historias con
+                     lectores.
+                  </p>
+                  <button
+                     className="footer-btn"
+                     onClick={() =>
+                        alert(
+                           "¡Hola! Somos un equipo de 4 estudiantes (Lauren Silva, Diego Silva, Nahuel Velazquez y Maite Silveira) de Anima Fines trabajando en este e-commerce.",
+                        )
+                     }
+                  >
+                     Conoce al equipo
+                  </button>
+               </div>
+
+               <div className="footer-info">
+                  <h4>Nuestro objetivo</h4>
+                  <p>
+                     Fomentar el hábito de la lectura mediante un espacio
+                     digital accesible, cercano y diseñado con el corazón.
+                  </p>
+                  <button
+                     className="footer-btn"
+                     onClick={() =>
+                        alert(
+                           "Nuestra meta es facilitar el acceso a la lectura con un diseño cercano y funcional.",
+                        )
+                     }
+                  >
+                     Ver objetivo
+                  </button>
+                  <button
+                     className="footer-btn"
+                     style={{ marginLeft: "10px" }}
+                     onClick={() =>
+                        alert(
+                           "Puedes contactarnos en: contacto@libreriaindice.com",
+                        )
+                     }
+                  >
+                     Contacto
+                  </button>
+               </div>
+            </div>
+
+            <div className="footer-credits">
+               <p>
+                  &copy; 2026 Librería Índice | Desarrollado por el equipo Anima
+                  Fines
+               </p>
+            </div>
+         </footer>
       </>
    );
 }
