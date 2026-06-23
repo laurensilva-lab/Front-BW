@@ -118,7 +118,7 @@ export default function ClienteView({ onLogout }) {
    useEffect(() => {
       fetch("http://localhost:3000/api/books")
          .then((res) => res.json())
-         .then((data) => setBooks([...data, ...misLibros]))
+         .then((data) => setBooks(data))
          .catch((err) => {
             console.error("Error cargando libros:", err);
             setBooks(misLibros);
@@ -152,7 +152,7 @@ export default function ClienteView({ onLogout }) {
                   />
                   <h1
                      className="logo-text"
-                     style={{ margin: 0, marginTop: "21px" }}
+                     style={{ marginLeft: "10px" }}
                   >
                      Libreria Indice
                   </h1>
