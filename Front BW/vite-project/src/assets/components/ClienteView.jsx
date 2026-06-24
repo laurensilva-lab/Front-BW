@@ -482,7 +482,7 @@ const filteredBooks = books.filter((book) => {
                <div className="footer-info">
                   <h4>Sobre Librería Índice</h4>
                   <p>
-                     Somos 4 estudiantes de Anima Fines apasionados por la
+                     Somos 4 estudiantes de Anima Finest apasionados por la
                      lectura. Creamos este proyecto para conectar historias con
                      lectores.
                   </p>
@@ -490,7 +490,7 @@ const filteredBooks = books.filter((book) => {
                      className="footer-btn"
                      onClick={() =>
                         alert(
-                           "¡Hola! Somos un equipo de 4 estudiantes (Lauren Silva, Diego Silva, Nahuel Velazquez y Maite Silveira) de Anima Fines trabajando en este e-commerce.",
+                           "¡Hola! Somos un equipo de 4 estudiantes (Lauren Silva, Diego Silva, Nahuel Velazquez y Maite Silveira) de Anima Finest trabajando en este e-commerce.",
                         )
                      }
                   >
@@ -531,7 +531,7 @@ const filteredBooks = books.filter((book) => {
             <div className="footer-credits">
                <p>
                   &copy; 2026 Librería Índice | Desarrollado por el equipo Anima
-                  Fines
+                  Finest
                </p>
             </div>
          </footer>
