@@ -755,4 +755,33 @@ RESPONSIVE
 
 .cart-toggle-btn:hover {
    background-color: #e0e0e0;
+.filters {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+   margin: 20px 0;
+   align-items: center;
+}
+
+.filter-input,
+.filter-select {
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   min-width: 180px;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+   outline: none;
+   border-color: #4f46e5;
+}
+
+.btn-secondary {
+   padding: 10px 15px;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+   background: #6b7280;
+   color: white;
 }
