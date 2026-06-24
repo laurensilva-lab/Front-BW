@@ -38,6 +38,7 @@ const misLibros = [
       cover: "https://i.pinimg.com/736x/7b/65/2c/7b652ccb6c0b4c59b63191fb7b7d4c88.jpg",
    },
 ];
+
 function MiCarrusel() {
    const imagenes = [foto1, foto2, foto3];
    const [index, setIndex] = useState(0);
@@ -85,6 +86,10 @@ export default function ClienteView({ onLogout }) {
    const [selectedBook, setSelectedBook] = useState(null);
    const [isCartOpen, setIsCartOpen] = useState(false);
    const [cartItems, setCartItems] = useState([]);
+   const [filter, setFilter] = useState("");
+   const [genreFilter, setGenreFilter] = useState("");
+   const [authorFilter, setAuthorFilter] = useState("");
+   const [maxPrice, setMaxPrice] = useState("");
    const [step, setStep] = useState("cart");
    const [formData, setFormData] = useState({
       nombre: "",
@@ -139,7 +144,43 @@ export default function ClienteView({ onLogout }) {
          setIsCartOpen(false);
       }, 2000);
    };
+const genres = [
+   ...new Set(
+      books
+         .map((book) => book.genero)
+         .filter(Boolean)
+   ),
+];
 
+const authors = [
+   ...new Set(
+      books
+         .map((book) => book.autor)
+         .filter(Boolean)
+   ),
+];
+
+const filteredBooks = books.filter((book) => {
+   const matchesText =`${book.nombre} ${book.autor} ${book.genero}`
+         .toLowerCase()
+         .includes(filter.toLowerCase());
+
+   const matchesGenre =!genreFilter ||
+      book.genero === genreFilter;
+
+   const matchesAuthor =!authorFilter ||
+      book.autor === authorFilter;
+
+   const matchesPrice =!maxPrice ||
+      Number(book.precio) <= Number(maxPrice);
+
+   return (
+      matchesText &&
+      matchesGenre &&
+      matchesAuthor &&
+      matchesPrice
+   );
+});
    return (
       <>
          <header className="app-header">
@@ -169,14 +210,70 @@ export default function ClienteView({ onLogout }) {
                   <span className="grid-label">Catálogo</span>
 
                   <span className="book-count">
-                     {books.length} libros disponibles
+                   {filteredBooks.length} libros encontrados
                   </span>
                </div>
 
                <MiCarrusel />
+<div className="filters">
+   <input
+      type="text"
+      placeholder="Buscar por nombre, autor o género..."
+      value={filter}
+      onChange={(e) => setFilter(e.target.value)}
+      className="filter-input"
+   />
 
+   <select
+      value={genreFilter}
+      onChange={(e) => setGenreFilter(e.target.value)}
+      className="filter-select"
+   >
+      <option value="">Todos los géneros</option>
+
+      {genres.map((genre) => (
+         <option key={genre} value={genre}>
+            {genre}
+         </option>
+      ))}
+   </select>
+
+   <select
+      value={authorFilter}
+      onChange={(e) => setAuthorFilter(e.target.value)}
+      className="filter-select"
+   >
+      <option value="">Todos los autores</option>
+
+      {authors.map((author) => (
+         <option key={author} value={author}>
+            {author}
+         </option>
+      ))}
+   </select>
+
+   <input
+      type="number"
+      placeholder="Precio máximo"
+      value={maxPrice}
+      onChange={(e) => setMaxPrice(e.target.value)}
+      className="filter-input"
+   />
+
+   <button
+      className="btn-secondary"
+      onClick={() => {
+         setFilter("");
+         setGenreFilter("");
+         setAuthorFilter("");
+         setMaxPrice("");
+      }}
+   >
+      Limpiar filtros
+   </button>
+</div>
                <div className="book-grid">
-                  {books.map((book) => (
+                  {filteredBooks.map((book) => (
                      <button
                         key={book.id}
                         className={`book-card ${
