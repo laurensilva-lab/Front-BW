@@ -199,10 +199,14 @@ const filteredBooks = books.filter((book) => {
                   </h1>
                </div>
             </h1>
-
+            <div className="header-buttons" style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+      <button className="btn-secondary cart-toggle-btn" onClick={() => setIsCartOpen(true)}>
+         🛒 Carrito ({cartItems.reduce((acc, item) => acc + item.cantidad, 0)})
+      </button>
             <button className="btn-primary" onClick={onLogout}>
                Cerrar sesión
             </button>
+            </div>
          </header>
          <main className="main-layout">
             <section className="grid-panel">
