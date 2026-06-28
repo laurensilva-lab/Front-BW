@@ -101,21 +101,36 @@ export default function ClienteView({ onLogout }) {
       tarjetaCVV: "",
    });
 
-   const addToCart = (book) => {
-      setCartItems((prevItems) => {
-         const existingItem = prevItems.find((item) => item.id === book.id);
-         if (existingItem) {
-            return prevItems.map((item) =>
-               item.id === book.id
-                  ? { ...item, cantidad: (Number(item.cantidad) || 0) + 1 }
-                  : item,
-            );
-         }
-         return [...prevItems, { ...book, cantidad: 1 }];
-      });
-      setIsCartOpen(true);
-   };
+ const addToCart = (book) => {
+   const cantidadEnCarrito =
+      cartItems.find((item) => item.id === book.id)?.cantidad || 0;
 
+   if (cantidadEnCarrito >= book.stock) {
+      alert("No hay más stock disponible.");
+      return;
+   }
+
+   setCartItems((prevItems) => {
+      const existingItem = prevItems.find(
+         (item) => item.id === book.id
+      );
+
+      if (existingItem) {
+         return prevItems.map((item) =>
+            item.id === book.id
+               ? {
+                    ...item,
+                    cantidad: item.cantidad + 1,
+                 }
+               : item
+         );
+      }
+
+      return [...prevItems, { ...book, cantidad: 1 }];
+   });
+
+   setIsCartOpen(true);
+};
    const removeItem = (id) => {
       setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
    };
@@ -135,15 +150,46 @@ export default function ClienteView({ onLogout }) {
       setFormData((prev) => ({ ...prev, [name]: value }));
    };
 
-   const handlePayment = () => {
-      alert("Procesando pago...");
-      setTimeout(() => {
-         alert("¡Pago exitoso! Gracias por tu compra.");
-         setStep("cart");
-         setCartItems([]);
-         setIsCartOpen(false);
-      }, 2000);
-   };
+  const handlePayment = () => {
+   alert("Procesando pago...");
+
+   setTimeout(() => {
+     
+      setBooks((prevBooks) =>
+         prevBooks.map((book) => {
+            const itemComprado = cartItems.find(
+               (item) => item.id === book.id
+            );
+
+            if (!itemComprado) return book;
+
+            return {
+               ...book,
+               stock: book.stock - itemComprado.cantidad,
+            };
+         })
+      );
+ 
+      if (selectedBook) {
+         const comprado = cartItems.find(
+            (item) => item.id === selectedBook.id
+         );
+
+         if (comprado) {
+            setSelectedBook((prev) => ({
+               ...prev,
+               stock: prev.stock - comprado.cantidad,
+            }));
+         }
+      }
+
+      alert("¡Pago exitoso! Gracias por tu compra.");
+
+      setCartItems([]);
+      setStep("cart");
+      setIsCartOpen(false);
+   }, 2000);
+};
 const genres = [
    ...new Set(
       books
@@ -337,12 +383,13 @@ const filteredBooks = books.filter((book) => {
                         <strong>Precio:</strong> ${selectedBook.precio}
                      </p>
 
-                     <button
+                    <button
                         className="btn-primary"
                         onClick={() => addToCart(selectedBook)}
+                         disabled={selectedBook.stock <= 0}
                      >
-                        Comprar
-                     </button>
+                   {selectedBook.stock > 0 ? "Comprar" : "Sin stock"}
+</button>
                   </div>
                ) : (
                   <h2>📖 Selecciona un libro</h2>
