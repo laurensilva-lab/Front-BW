@@ -222,7 +222,7 @@ const filteredBooks = books.filter((book) => {
 <div className="filters">
    <input
       type="text"
-      placeholder="Buscar por nombre, autor o género..."
+      placeholder="Buscardar Libro "
       value={filter}
       onChange={(e) => setFilter(e.target.value)}
       className="filter-input"
@@ -233,7 +233,7 @@ const filteredBooks = books.filter((book) => {
       onChange={(e) => setGenreFilter(e.target.value)}
       className="filter-select"
    >
-      <option value="">Todos los géneros</option>
+      <option value="">Géneros</option>
 
       {genres.map((genre) => (
          <option key={genre} value={genre}>
@@ -247,7 +247,7 @@ const filteredBooks = books.filter((book) => {
       onChange={(e) => setAuthorFilter(e.target.value)}
       className="filter-select"
    >
-      <option value="">Todos los autores</option>
+      <option value="">Autores</option>
 
       {authors.map((author) => (
          <option key={author} value={author}>
@@ -258,7 +258,7 @@ const filteredBooks = books.filter((book) => {
 
    <input
       type="number"
-      placeholder="Precio máximo"
+      placeholder="Precio "
       value={maxPrice}
       onChange={(e) => setMaxPrice(e.target.value)}
       className="filter-input"
