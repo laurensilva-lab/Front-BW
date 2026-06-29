@@ -630,6 +630,17 @@ RESPONSIVE
 }
 
 /* Contenedor principal del Carrusel */
+
+
+@media (max-width: 768px) {
+   .custom-carousel {
+      height: 280px; 
+      width: 100%;   
+   }
+   .carousel-dots {
+      justify-content: center; 
+   }
+}
 .custom-carousel {
    position: relative;
    max-width: 800px;
@@ -698,25 +709,11 @@ RESPONSIVE
    background-color: #ffffff;
    transform: scale(1.2);
 }
-@media (max-width: 768px) {
-   .custom-carousel {
-      height: 280px; 
-      width: 100%;   
-   }
-   .carousel-dots {
-      justify-content: center; 
-   }
-}
 
-@media (max-width: 768px) {
-   .custom-carousel {
-      height: 280px; 
-      width: 100%;   
-   }
-   .carousel-dots {
-      justify-content: center;
-   }
-}
+
+
+ 
+ 
 
 /*Footer  */
 .app-footer {
@@ -890,4 +887,13 @@ RESPONSIVE
    cursor: not-allowed;
    opacity: 0.7;
 }
+}
+@media (max-width: 768px) {
+   .custom-carousel {
+      height: 120px; 
+      width: 90%;   
+   }
+   .carousel-dots {
+      justify-content: center; 
+   }
 }

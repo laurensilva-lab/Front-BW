@@ -268,7 +268,7 @@ const filteredBooks = books.filter((book) => {
 <div className="filters">
    <input
       type="text"
-      placeholder="Buscardar Libro "
+      placeholder="Buscar Libro "
       value={filter}
       onChange={(e) => setFilter(e.target.value)}
       className="filter-input"
