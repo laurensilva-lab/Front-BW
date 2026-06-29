@@ -319,6 +319,15 @@ CLIENTE VIEW
          center/cover;
 }
 
+ 
+ 
+.grid-header {
+   display: flex;
+   justify-content: space-between;
+   
+   margin-bottom: 25px;
+}
+ 
 
 .book-grid {
    display: grid;
@@ -689,6 +698,15 @@ RESPONSIVE
    background-color: #ffffff;
    transform: scale(1.2);
 }
+@media (max-width: 768px) {
+   .custom-carousel {
+      height: 280px; 
+      width: 100%;   
+   }
+   .carousel-dots {
+      justify-content: center; 
+   }
+}
 
 @media (max-width: 768px) {
    .custom-carousel {
@@ -717,7 +735,11 @@ RESPONSIVE
    justify-content: space-between; 
    gap: normal;
    width: 100%;
+ 
    
+ 
+   max-width: 1700px;
+ 
    padding-bottom: 20px;
    border-bottom: 1px solid #5d4a46;
 }
@@ -760,6 +782,7 @@ RESPONSIVE
 }
 
 /* Botón de carrito */
+
 .cart-toggle-btn {
    background-color: #ffffff; 
    border: 1px solid #cbd5e1;
@@ -818,7 +841,7 @@ RESPONSIVE
 }
 
 .btn-secondary {
-<<<<<<< HEAD
+ 
   padding: 11px 18px;
   border: none;
   border-radius: 10px;
@@ -854,8 +877,7 @@ RESPONSIVE
     padding: 8px 12px;
     font-size: 0.82rem;
     gap: 6px;
-  }
-=======
+  
    padding: 10px 15px;
    border: none;
    border-radius: 8px;
@@ -867,5 +889,5 @@ RESPONSIVE
    background: #999;
    cursor: not-allowed;
    opacity: 0.7;
->>>>>>> 9dcaf8ead78c704823a7e08a49812dca8ba69657
+}
 }
